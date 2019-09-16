@@ -8,17 +8,24 @@ from controllers.user_controller import UserController
 
 app = Flask(__name__)  # pylint: disable=invalid-name
 
+@app.route("/")
+def hello_world():
+    """Return HW on the  root  path."""
+    return "Hello, World."
+
 @app.route("/ticket")
 def get_ticket_list():
-    """this methods gets the list of all tickets
-    """
+    """Get a list of all tickets."""
     tickets_array = TicketController.get_tickets()
     return jsonify(tickets_array)
 
 @app.route("/ticket", methods=["POST"])
 def create_ticket():
-    """this methods creates the new ticket
-    """
+    """Create a new ticket and add it to the ticket pool."""
+    ticket_data = request.get_json()
+    ticket = TicketController.create_ticket(ticket_data)
+
+    return jsonify(ticket)
 
 @app.route("/ticket/<int:ticket_id>")
 def get_single_ticket(ticket_id):
