@@ -5,7 +5,6 @@ from models.ticket import Ticket
 class TicketController:
     """TicketController class
     """
-    
     _tickets = []
 
     @classmethod
@@ -13,7 +12,7 @@ class TicketController:
         """this method returns the list of tickets
         """
         return cls._tickets
-    
+
     @classmethod
     def get_ticket_by_id(cls, ticket_id):
         """this method gets ticket by id
@@ -23,7 +22,7 @@ class TicketController:
         )
 
         return tickets_by_id[0]
-    
+
     @classmethod
     def create_ticket(cls, data):
         """this method creates the ticket
@@ -42,7 +41,7 @@ class TicketController:
         """
 
     @classmethod
-    def delete_ticket(cls, tick_id):
+    def delete_ticket(cls, ticket_id):
         """this ticket deletes the ticket
         """
 
@@ -50,13 +49,10 @@ class TicketController:
     def update_ticket(cls, data):
         """this method udpates the ticket
         """
-        
+
 
     @classmethod
     def _get_highest_ticket_id(cls):
         """this methiod returns the highest ticket id
         """
         return max([u.get_ticket_id() for u in cls._tickets])
-    
-    
-    

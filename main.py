@@ -1,7 +1,6 @@
 """ Assignment week 5
     Ticketing system flask app
 """
-
 from flask import Flask, jsonify, request
 from controllers.ticket_controller import TicketController
 from controllers.user_controller import UserController
@@ -25,7 +24,7 @@ def get_single_ticket(ticket_id):
     """this method returns the single ticket
     """
 
-@app.route("/ticket/<int:ticket_id>", methods=["UPDATE"])
+@app.route("/ticket/<int:ticket_id>", methods=["PUT"])
 def update_ticket(ticket_id):
     """this method updates the specific ticket
     """
@@ -47,15 +46,30 @@ def create_user():
     """this method creates a new user
     """
 
-@app.route("/ticket/<int:user_id>")
+@app.route("/user/<int:user_id>")
 def get_single_user(user_id):
     """this method gets the specific user
     """
 
-@app.route("/user/<int:user_id>", methods=["UPDATE"])
+@app.route("/user/<int:user_id>", methods=["PUT"])
 def update_user(user_id):
     """this method updates the specific user
     """
+    user_data = request.get_json()
+    response = None
+
+    #get user by id
+    user_by_id = UserController.get_users_by_id(user_id)
+    
+    if user_by_id:
+        UserController.update_user(user_by_id, user_data)
+        response = success_response_body(user_data)
+    else:
+        #return no user error
+        response = resource_not_found_response()
+    
+    return response
+
 
 @app.route("/user/<int:user_id>", methods=["DELETE"])
 def delete_user(user_id):
@@ -69,5 +83,18 @@ def success_response_body(data):
     return {
         "result": True,
         "data": data
-
     }
+
+def resource_not_found_response(message=None):
+    """resource not found method
+    """
+
+    body_dict = {
+        "code":4040,
+        "error":"resource not found",
+        "result":False
+    }
+    if message:
+        body_dict["message"] = message
+
+    return jsonify(body_dict), 404
