@@ -16,7 +16,7 @@ class TicketController:
     def get_ticket_by_id(cls, ticket_id):
         """Get the ticket by ID."""
         tickets_by_id = list(
-            filter(lambda d: d['ticket_id'] == ticket_id, cls._tickets)
+            filter(lambda d: d.get_ticket_id() == ticket_id, cls._tickets)
         )
 
         return tickets_by_id[0]

@@ -28,7 +28,7 @@ def create_ticket():
 def get_single_ticket(ticket_id):
     """Return a single ticket based on its ID."""
     ticket = TicketController.get_ticket_by_id(ticket_id)
-    return jsonify(ticket.to_dict())
+    return jsonify(ticket.ticket_to_dict())
 
 @app.route("/ticket/<int:ticket_id>", methods=["UPDATE"])
 def update_ticket(ticket_id):
