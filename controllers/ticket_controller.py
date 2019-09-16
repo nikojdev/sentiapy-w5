@@ -1,21 +1,22 @@
 """Ticket controller module."""
 
 from models.ticket import Ticket
+
 class TicketController:
     """TicketController class."""
 
-    tickets = []
+    _tickets = []
 
     @classmethod
     def get_tickets(cls):
         """Return the list of tickets."""
-        return cls.tickets
+        return list(map(lambda d: d.ticket_to_dict(), cls._tickets))
 
     @classmethod
     def get_ticket_by_id(cls, ticket_id):
         """Get the ticket by ID."""
         tickets_by_id = list(
-            filter(lambda d: d['id'] == ticket_id, cls.tickets)
+            filter(lambda d: d['ticket_id'] == ticket_id, cls._tickets)
         )
 
         return tickets_by_id[0]
@@ -29,29 +30,25 @@ class TicketController:
             name=data["name"],
             status=data["status"]
         )
-        data = new_ticket.ticket_to_dict()
-        cls.tickets.append(new_ticket)
+        cls._tickets.append(new_ticket)
         return new_ticket
 
     @classmethod
     def assign_ticket(cls, data):
-        """this method assigns the ticket 
-        """
+        """Assign a ticket."""
 
     @classmethod
     def delete_ticket(cls, tick_id):
-        """this ticket deletes the ticket
-        """
+        """Delete a ticket."""
 
     @classmethod
     def update_ticket(cls, data):
-        """this method udpates the ticket
-        """
+        """Update a ticket."""
 
     @classmethod
     def _get_highest_ticket_id(cls):
         """Return the highest ticket id."""
-        if not cls.tickets:
+        if not cls._tickets:
             return 0
         else:
-            return max([u.get_ticket_id() for u in cls.tickets])
+            return max([u.get_ticket_id() for u in cls._tickets])

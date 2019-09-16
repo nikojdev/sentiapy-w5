@@ -1,6 +1,4 @@
-""" Assignment week 5
-    Ticketing system flask app
-"""
+"""Assignment week 5 - Ticketing system flask app."""
 
 from flask import Flask, jsonify, request
 from controllers.ticket_controller import TicketController
@@ -9,9 +7,9 @@ from controllers.user_controller import UserController
 app = Flask(__name__)  # pylint: disable=invalid-name
 
 @app.route("/")
-def hello_world():
+def home():
     """Return HW on the  root  path."""
-    return "Hello, World."
+    return "Welcome to the pool."
 
 @app.route("/ticket")
 def get_ticket_list():
@@ -22,25 +20,24 @@ def get_ticket_list():
 @app.route("/ticket", methods=["POST"])
 def create_ticket():
     """Create a new ticket and add it to the ticket pool."""
-    ticket_data = request.get_json()
-    ticket = TicketController.create_ticket(ticket_data)
-
-    return jsonify(ticket)
+    data = request.get_json()
+    ticket = TicketController.create_ticket(data)
+    return jsonify(ticket.ticket_to_dict())
 
 @app.route("/ticket/<int:ticket_id>")
 def get_single_ticket(ticket_id):
-    """this method returns the single ticket
-    """
+    """Return a single ticket based on its ID."""
+    ticket = TicketController.get_ticket_by_id(ticket_id)
+    return jsonify(ticket.to_dict())
 
 @app.route("/ticket/<int:ticket_id>", methods=["UPDATE"])
 def update_ticket(ticket_id):
-    """this method updates the specific ticket
-    """
+    """Update a specific ticket."""
+
 
 @app.route("/ticket/<int:ticket_id>", methods=["DELETE"])
 def delete_ticket(ticket_id):
-    """this method deletes the specific ticket
-    """
+    """Delete a specific ticket."""
 
 @app.route("/user")
 def get_user_list():
@@ -70,9 +67,7 @@ def delete_user(user_id):
     """
 
 def success_response_body(data):
-    """success body response
-    """
-
+    """Return a successful message."""
     return {
         "result": True,
         "data": data
