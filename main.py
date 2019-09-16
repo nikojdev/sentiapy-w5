@@ -44,13 +44,16 @@ def get_user_list():
 
 @app.route("/user", methods=["POST"])
 def create_user():
-    """this method creates a new user
-    """
+    """this method creates a new user."""
+    data = request.get_json()
+    user = UserController.create_user(data)
+    return jsonify(user.to_dict())
 
-@app.route("/ticket/<int:user_id>")
+@app.route("/user/<int:user_id>")
 def get_single_user(user_id):
-    """this method gets the specific user
-    """
+    """this method gets the specific user."""
+    user = UserController.get_users_by_id(user_id)
+    return jsonify(user.to_dict())
 
 @app.route("/user/<int:user_id>", methods=["UPDATE"])
 def update_user(user_id):
@@ -59,8 +62,9 @@ def update_user(user_id):
 
 @app.route("/user/<int:user_id>", methods=["DELETE"])
 def delete_user(user_id):
-    """this method deltes the specific user
-    """
+    """this method deltes the specific user."""
+    UserController.delete_user(user_id)
+    return jsonify({})
 
 def success_response_body(data):
     """success body response
