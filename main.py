@@ -103,6 +103,7 @@ def update_user(user_id):
 @app.route("/user/<int:user_id>", methods=["DELETE"])
 def delete_user(user_id):
     """this method deltes the specific user."""
+    TicketController.unassign_tickets_by_user_id(user_id)
     UserController.delete_user(user_id)
     return jsonify({})
 

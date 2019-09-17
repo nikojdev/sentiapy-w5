@@ -28,6 +28,10 @@ class Ticket:
         """Assign a person to a ticket."""
         self._ticket_assignee = person
 
+    def unassign(self):
+        """Assign a person to a ticket."""
+        self._ticket_assignee = None
+
     def get_ticket_status(self):
         """Return the ticket status."""
         return self._status

@@ -21,6 +21,21 @@ class TicketController:
         return tickets_by_id[0] if tickets_by_id else None
 
     @classmethod
+    def get_tickets_assigned_to_user(cls, user_id):
+        """Get the tickets by assignee"""
+        tickets = list(
+            filter(lambda d: False if d.get_ticket_assignee() == None else d.get_ticket_assignee().get_user_id() == user_id, cls._tickets)
+        )
+        return tickets
+
+    @classmethod
+    def unassign_tickets_by_user_id(cls, user_id):
+        """unassign all tickets from user"""
+        tickets = cls.get_tickets_assigned_to_user(user_id)
+        for ticket in tickets:
+            ticket.unassign()
+
+    @classmethod
     def create_ticket(cls, data):
         """Create a new ticket."""
         highest_ticket_id = cls._get_highest_ticket_id() + 1
