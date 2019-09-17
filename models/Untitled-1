@@ -1,6 +1,0 @@
-curl -X PUT http://127.0.0.1:5000/ticket/1 '{
-    "fruit": "Apple",
-    "size": "Large",
-    "color": "Red"
-}'
-
