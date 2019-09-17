@@ -4,7 +4,6 @@ from models.ticket import Ticket
 
 class TicketController:
     """TicketController class."""
-
     _tickets = []
 
     @classmethod
@@ -51,4 +50,4 @@ class TicketController:
         if not cls._tickets:
             return 0
         else:
-            return max([u.get_ticket_id() for u in cls._tickets])
+            return max([u.get_ticket_id() for u in cls._tickets]
