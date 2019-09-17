@@ -18,8 +18,8 @@ class UserController:
             filter(lambda d: d.get_user_id() == user_id, cls._users)
         )
 
-        return users_by_id[0]
-    
+        return users_by_id[0] if users_by_id else None
+
     @classmethod
     def create_user(cls, data):
         """[summary]
@@ -42,4 +42,12 @@ class UserController:
     def _get_highest_user_id(cls):
         """[summary]."""
         return max([u.get_user_id() for u in cls._users])+1 if cls._users else 1
+    
+    @classmethod
+    def update_user(cls, user, data):
+        """update user datails
+        """
+        #update user
+        if data["name"]:
+            user.set_name(data["name"])
     
