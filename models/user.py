@@ -24,3 +24,10 @@ class User:
         """[summary]
         """
         self._name = name
+
+    def to_dict(self):
+        """[summary]. """
+        return {
+            "user_id": self.get_user_id(),
+            "name": self.get_name()
+        }
