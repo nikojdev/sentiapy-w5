@@ -59,6 +59,12 @@ def update_ticket(ticket_id):
 @app.route("/ticket/<int:ticket_id>", methods=["DELETE"])
 def delete_ticket(ticket_id):
     """Delete a specific ticket."""
+    if TicketController.get_ticket_by_id(ticket_id):
+        TicketController.delete_ticket(ticket_id)
+        response = success_response_body({})
+    else:
+        response = resource_not_found_response()
+    return response
 
 @app.route("/user")
 def get_user_list():

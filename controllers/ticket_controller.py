@@ -37,8 +37,10 @@ class TicketController:
         """Assign a ticket."""
 
     @classmethod
-    def delete_ticket(cls, tick_id):
+    def delete_ticket(cls, ticket_id):
         """Delete a ticket."""
+        new_tickets = list(filter(lambda d: d.get_ticket_id() != ticket_id, cls._tickets))
+        cls._tickets = new_tickets
 
     @classmethod
     def update_ticket(cls, ticket, data, user=None):
