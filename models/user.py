@@ -18,3 +18,10 @@ class User:
         """this method returns name
         """
         return self._name
+
+    def to_dict(self):
+        """[summary]. """
+        return {
+            "user_id": self.get_user_id(),
+            "name": self.get_name()
+        }
