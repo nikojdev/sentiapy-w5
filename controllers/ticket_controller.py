@@ -18,7 +18,7 @@ class TicketController:
             filter(lambda d: d.get_ticket_id() == ticket_id, cls._tickets)
         )
 
-        return tickets_by_id[0]
+        return tickets_by_id[0] if tickets_by_id else None
 
     @classmethod
     def create_ticket(cls, data):
@@ -41,8 +41,16 @@ class TicketController:
         """Delete a ticket."""
 
     @classmethod
-    def update_ticket(cls, data):
+    def update_ticket(cls, ticket, data, user=None):
         """Update a ticket."""
+
+        #update according to the data provided
+        if "name" in data:
+            ticket.set_ticket_name(data["name"])
+        if "status" in data:
+            ticket.set_ticket_status(data["status"])
+        if user:
+            ticket.assign_person(user)
 
     @classmethod
     def _get_highest_ticket_id(cls):

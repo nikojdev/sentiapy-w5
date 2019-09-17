@@ -33,6 +33,27 @@ def get_single_ticket(ticket_id):
 @app.route("/ticket/<int:ticket_id>", methods=["PUT"])
 def update_ticket(ticket_id):
     """Update a specific ticket."""
+    ticket_data = request.get_json()
+    user_by_id = None
+    response = None
+
+    #get ticket by id
+    ticket_by_id = TicketController.get_ticket_by_id(ticket_id)
+
+    #check if there is assignee key provided in request
+    if "ticket_assignee" in ticket_data:
+        user_by_id = UserController.get_users_by_id(ticket_data["ticket_assignee"])
+        if user_by_id is None:
+            return resource_not_found_response() #return not found response if wrong user provided
+
+    #check if ticket was found and update accordingly
+    if ticket_by_id:
+        TicketController.update_ticket(ticket_by_id, ticket_data, user_by_id)
+        response = success_response_body(ticket_data)
+    else:
+        #return no user error
+        response = resource_not_found_response()
+    return response
 
 
 @app.route("/ticket/<int:ticket_id>", methods=["DELETE"])
@@ -68,14 +89,14 @@ def update_user(user_id):
 
     #get user by id
     user_by_id = UserController.get_users_by_id(user_id)
-    
+
     if user_by_id:
         UserController.update_user(user_by_id, user_data)
         response = success_response_body(user_data)
     else:
         #return no user error
         response = resource_not_found_response()
-    
+
     return response
 
 
