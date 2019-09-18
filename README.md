@@ -3,11 +3,13 @@
 Python week 5 assignment
 
 ## Run
-```
+
+```CLI
 Debug mode: FLASK_ENV=development FLASK_APP=main.py flask run
 ```
 
 ## Endpoints
+
 * `GET /ticket/` list all tickets with details
 * `GET /ticket/:id` Get the specific ticket details
 * `PUT /ticket/:id` Update the ticket details
@@ -15,12 +17,12 @@ Debug mode: FLASK_ENV=development FLASK_APP=main.py flask run
 
 * `GET /user/` list all users
 * `GET /user/:id` Get the specific user details
-* `PUT /user/:id` Update the user details 
-* `POST /user/` Create new user 
+* `PUT /user/:id` Update the user details
+* `POST /user/` Create new user
 
 ## Json examples
 
-#### Create Ticket `POST /ticket/` 
+### Create Ticket `POST /ticket/`
 
 ```json
 {
@@ -30,6 +32,7 @@ Debug mode: FLASK_ENV=development FLASK_APP=main.py flask run
 ```
 
 #### Create User `POST /user/`
+
 ```json
 {
     "name": "Jean-Luc Picard"
@@ -44,6 +47,3 @@ Debug mode: FLASK_ENV=development FLASK_APP=main.py flask run
     "ticket_assignee": 3
 }
 ```
-
-
-

@@ -1,1 +1,1 @@
-"""The shelter package, containing the shelter module."""
+"""The models package, containing the models module."""
