@@ -137,6 +137,6 @@ def error_response(status_code, error, message=None):
     return jsonify(body_dict), status_code
 
 @app.errorhandler(Exception)
-def page_not_found(error):
-    """page not found error"""
+def error_handler(error):
+    """error handler"""
     return error_response(error.code, error.description)
