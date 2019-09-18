@@ -122,6 +122,34 @@ def delete_user(user_id):
     UserController.delete_user(user_id)
     return jsonify({})
 
+@app.route("/instance")
+def get_instance_info():
+    """Get info about the current instance."""
+    local_ipv4 = "unknown"
+    instance_id = "unknown"
+
+    try:
+        local_ipv4 = file_get_contents("/tmp/local-ipv4")
+        instance_id = file_get_contents("/tmp/instance-id")
+    except FileNotFoundError:
+        pass
+
+    instance_info = {
+        "local-ipv4": local_ipv4,
+        "instance-id": instance_id
+    }
+
+    return jsonify(
+        instance_info
+    )
+
+def file_get_contents(path):
+    """Return the contents of the given file."""
+    file_handle = open(path, "r")
+    contents = file_handle.read()
+    file_handle.close()
+    return contents
+
 
 def success_response_body(data):
     """Return a successful message."""
