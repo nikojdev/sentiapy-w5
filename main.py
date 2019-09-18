@@ -68,28 +68,26 @@ def delete_ticket(ticket_id):
 
 @app.route("/user")
 def get_user_list():
-    """this method gets the list of all users
-    """
+    """Return a list of all users."""
     users_array = UserController.get_users()
     return jsonify(users_array)
 
 @app.route("/user", methods=["POST"])
 def create_user():
-    """this method creates a new user."""
+    """Create a user."""
     data = request.get_json()
     user = UserController.create_user(data)
     return jsonify(user.to_dict())
 
 @app.route("/user/<int:user_id>")
 def get_single_user(user_id):
-    """this method gets the specific user."""
+    """Return a specific user based on ID."""
     user = UserController.get_users_by_id(user_id)
     return jsonify(user.to_dict())
 
 @app.route("/user/<int:user_id>", methods=["PUT"])
 def update_user(user_id):
-    """this method updates the specific user
-    """
+    """Update a user."""
     user_data = request.get_json()
     response = None
 
@@ -108,7 +106,7 @@ def update_user(user_id):
 
 @app.route("/user/<int:user_id>", methods=["DELETE"])
 def delete_user(user_id):
-    """this method deltes the specific user."""
+    """Delete a specific user based on ID."""
     TicketController.unassign_tickets_by_user_id(user_id)
     UserController.delete_user(user_id)
     return jsonify({})
@@ -121,9 +119,7 @@ def success_response_body(data):
     }
 
 def resource_not_found_response(message=None):
-    """resource not found method
-    """
-
+    """Return an error message."""
     body_dict = {
         "code":4040,
         "error":"resource not found",
