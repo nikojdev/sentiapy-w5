@@ -2,8 +2,10 @@
 
 from models.ticket import Ticket
 
+
 class TicketController:
     """TicketController class."""
+
     _tickets = []
 
     @classmethod
@@ -24,7 +26,12 @@ class TicketController:
     def get_tickets_assigned_to_user(cls, user_id):
         """Get the tickets by assignee"""
         tickets = list(
-            filter(lambda d: False if d.get_ticket_assignee() == None else d.get_ticket_assignee().get_user_id() == user_id, cls._tickets)
+            filter(
+                lambda d: False
+                if d.get_ticket_assignee() is None
+                else d.get_ticket_assignee().get_user_id() == user_id,
+                cls._tickets,
+            )
         )
         return tickets
 
@@ -40,9 +47,7 @@ class TicketController:
         """Create a new ticket."""
         highest_ticket_id = cls._get_highest_ticket_id() + 1
         new_ticket = Ticket(
-            ticket_id=highest_ticket_id,
-            name=data["name"],
-            status=data["status"]
+            ticket_id=highest_ticket_id, name=data["name"], status=data["status"]
         )
         cls._tickets.append(new_ticket)
         return new_ticket
@@ -54,14 +59,16 @@ class TicketController:
     @classmethod
     def delete_ticket(cls, ticket_id):
         """Delete a ticket."""
-        new_tickets = list(filter(lambda d: d.get_ticket_id() != ticket_id, cls._tickets))
+        new_tickets = list(
+            filter(lambda d: d.get_ticket_id() != ticket_id, cls._tickets)
+        )
         cls._tickets = new_tickets
 
     @classmethod
     def update_ticket(cls, ticket, data, user=None):
         """Update a ticket."""
 
-        #update according to the data provided
+        # update according to the data provided
         if "name" in data:
             ticket.set_ticket_name(data["name"])
         if "status" in data:
