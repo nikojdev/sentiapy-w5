@@ -9,8 +9,8 @@ Debug mode: FLASK_ENV=development FLASK_APP=main.py flask run
 
 ## Endpoints
 * `GET /ticket/` list all tickets with details
-* `GET /ticket/:id` Get the specific ticket detials
-* `PUT /ticket/:id` Update the ticket detials
+* `GET /ticket/:id` Get the specific ticket details
+* `PUT /ticket/:id` Update the ticket details
 * `POST /ticket/` Create new ticket
 
 * `GET /user/` list all users
